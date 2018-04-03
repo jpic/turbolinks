@@ -36,7 +36,22 @@ The gem also provides server-side support for Turbolinks redirection.
 Your application can use the [`turbolinks` npm package](https://www.npmjs.com/package/turbolinks) to install Turbolinks as a module for build tools like [webpack](http://webpack.github.io/).
 
 1. Add the `turbolinks` package to your application: `npm install --save turbolinks`.
-2. Require and start Turbolinks in your JavaScript bundle:
+2. Ensure Babel will not parse webpack if you use babel:
+
+   ```js
+        test: /\.js$/,
+        // Turbolinks doesn't support babel
+        exclude: /(node_modules.bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['stage-2', 'babel-preset-env']
+          }
+        }
+
+   ```
+
+3. Require and start Turbolinks in your JavaScript bundle:
 
     ```js
     var Turbolinks = require("turbolinks")
